@@ -40,7 +40,7 @@ int	main()
 	//5,2
 	while (fscanf(fptr, "%s ", buf) == 1)
 	{
-		//printf("%s\n", buf);
+		printf("Line %d: %s\n", line, buf);
 		while (buf[i])
 		{
 			//write(1, &buf[i], 1);
@@ -48,13 +48,14 @@ int	main()
 			{
 				//write(1, &buf[i], 1);
 				nums[line][0] = buf[i];
+				printf("<< Num inserted: %c\n", nums[line][0]);
 				break ;
 			}
 			i++;
-		//}
+		}
+		i = 0;
 		int j = strlen(buf);
-		printf("j=%d\n", j);
-	}
+		//printf("j=%d\n", j);
 		while (j >= 0)
 		{
 			//write(1, &buf[j - 1], 1);
@@ -62,22 +63,40 @@ int	main()
 			{
 				//write(1, &buf[j - 1], 1);
 				nums[line][1] = buf[j - 1];
+				printf(">> Num inserted: %c\n", nums[line][1]);
 				break ;
 			}
 			j--;
 		}
 		//write(1, "\n", 1);
-		printf("Processed line: %d\n", line);
+		printf("Processed line: %d\n\n", line);
 		line++;
 	}
-
-	i = 0;
+	int k = 0;
 	result = 0;
-	while (nums[i])
+	while (*nums[k])
 	{
-		//result += atoi(strcat(&nums[i][0], &nums[i][1]));
-		//printf("i, num: %d, %c%c\n", i, nums[i][0], nums[i][1]);
-		i++;
+		char temp[3] = "";
+		//*nums[k] = malloc(sizeof(int) * 2);
+		/*
+		 *
+		 * OK bug is isolated to here:
+		 *
+		 *
+		strcpy(&temp[0], &nums[k][0]);
+		strcpy(&temp[1], &nums[k][1]);
+		*
+		*
+		*/
+		//result += atoi(strcat(&nums[k][0], &nums[k][1]));
+		printf("k, num: %d, %c%c\n", k, nums[k][0], nums[k][1]);
+		printf("k, num, *temp[2]: %d, %c%c, %s\n", k, nums[k][0], nums[k][1], temp);
+		printf("atoi temp: %d\n", atoi(temp));
+		result += atoi(temp);
+		printf("Result = %d\n", result);
+		//printf("k = %d\n", k);
+		k++;
+		getchar();
 	}
 	printf("Result = %d\n", result);
 }
