@@ -23,6 +23,10 @@ int	main()
 	int result;
 	int line = 0;		
 	int i = 0;
+	char days[9][2][6] = {{"1", "one"}, {"2", "two"}, {"3", "three"}, {"4", "four"},
+		{"5", "five"}, {"6", "six"}, {"7", "seven"}, {"8", "eight"}, {"9", "nine"}};
+	//printf("days[2][0], days[3][1], days[7][0], days[7][1]: %s, %s, %s, %s\n", 
+			days[2][0], days[3][1], days[7][0], days[7][1]);
 
 	fptr = fopen("input", "r");
 
@@ -32,52 +36,49 @@ int	main()
 				"now exit.");
 		exit(0);
 	}
-	//we should get:
-	//9,3
-	//1,1
-	//6,4
-	//9,9
-	//5,2
+
+	//Read file into array v1:
 	while (fscanf(fptr, "%s ", buf) == 1)
 	{
-		//printf("%s\n", buf);
 		while (buf[i])
 		{
-			//write(1, &buf[i], 1);
 			if (buf[i] >= '0' && buf[i] <= '9')
 			{
-				//write(1, &buf[i], 1);
 				nums[line][0] = buf[i];
 				break ;
 			}
 			i++;
-		//}
+		}
+		i = 0;
 		int j = strlen(buf);
-		printf("j=%d\n", j);
-	}
 		while (j >= 0)
 		{
-			//write(1, &buf[j - 1], 1);
 			if (buf[j - 1] >= '0' && buf[j - 1] <= '9')
 			{
-				//write(1, &buf[j - 1], 1);
 				nums[line][1] = buf[j - 1];
 				break ;
 			}
 			j--;
 		}
-		//write(1, "\n", 1);
-		printf("Processed line: %d\n", line);
 		line++;
 	}
 
-	i = 0;
+	//Iterate through array and calculate the result v1:
+	int k = 0;
 	result = 0;
-	while (nums[i])
+	char *temp = malloc(3);
+	while (*nums[k])
 	{
-		//result += atoi(strcat(&nums[i][0], &nums[i][1]));
-		//printf("i, num: %d, %c%c\n", i, nums[i][0], nums[i][1]);
-		i++;
+		temp[0] = nums[k][0];
+		temp[1] = nums[k][1];
+		temp[2] = '\0';
+		result += atoi(temp);
+		k++;
 	}
 	printf("Result = %d\n", result);
+	free(temp);
+
+	
+	fclose(fptr);
+	//return (result);
 }

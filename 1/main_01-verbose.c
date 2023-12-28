@@ -38,6 +38,8 @@ int	main()
 	//6,4
 	//9,9
 	//5,2
+
+	//Read file into array:
 	while (fscanf(fptr, "%s ", buf) == 1)
 	{
 		printf("Line %d: %s\n", line, buf);
@@ -72,11 +74,20 @@ int	main()
 		printf("Processed line: %d\n\n", line);
 		line++;
 	}
+
+	//Iterate through array and calculate the result:
 	int k = 0;
 	result = 0;
+	char *temp = malloc(3);
 	while (*nums[k])
 	{
-		char temp[3] = "";
+		/*
+		char *temp;
+		temp = malloc(sizeof(char) * 3);
+		*/
+		temp[0] = nums[k][0];
+		temp[1] = nums[k][1];
+		temp[2] = '\0';
 		//*nums[k] = malloc(sizeof(int) * 2);
 		/*
 		 *
@@ -90,13 +101,15 @@ int	main()
 		*/
 		//result += atoi(strcat(&nums[k][0], &nums[k][1]));
 		printf("k, num: %d, %c%c\n", k, nums[k][0], nums[k][1]);
-		printf("k, num, *temp[2]: %d, %c%c, %s\n", k, nums[k][0], nums[k][1], temp);
+		printf("k, num, *temp: %d, %c%c, %s\n", k, nums[k][0], nums[k][1], temp);
 		printf("atoi temp: %d\n", atoi(temp));
 		result += atoi(temp);
 		printf("Result = %d\n", result);
 		//printf("k = %d\n", k);
 		k++;
-		getchar();
+		//getchar();
 	}
 	printf("Result = %d\n", result);
+	free(temp);
+	fclose(fptr);
 }
